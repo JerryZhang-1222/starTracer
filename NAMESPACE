@@ -2,8 +2,12 @@
 
 S3method(searchMarker,Seurat)
 S3method(searchMarker,matrix)
+export(StVlnPlot)
 export(searchMarker)
 import(Seurat)
 import(dplyr)
+import(ggplot2)
 import(magrittr)
 import(methods)
+import(reshape2)
+import(viridis)

@@ -1,11 +1,11 @@
 Package: starTracker
 Title: A High Effect Marker Gene Search Tool for Single-cell RNA-seq Analysis
-Version: 1.0.2.9000
+Version: 1.0.3.9000
 update: 
 Authors@R: 
    c(person(given = "Feiyang", family = "ZHANG" , email = "feiyang.zhang@a.riken.jp", role = c("aut", "cre")),
      person(given = "Zechen", family = "LIU" , email = "2017301500039@whu.edu.cn", role = "ctb"),
-     person(given = "Wenhao", family = "MA" , email = "2840008176@qq.com", role = "ctb"),
+     person(given = "Wenhao", family = "MA" , email = "2020305231062@whu.edu.cn", role = "ctb"),
      person(given = "Xiang", family = "LI" , email = "lixiang.epi@foxmail.com", role = "ctb"),
      person(given = "Wei", family = "WEI" , email = "royweiwei12@foxmail.com", role = "ctb"),
      person(given = "Qiongyi", family = "ZHAO", email = "q.zhao@uq.edu.au", role = "ctb"))
@@ -23,7 +23,8 @@ Imports:
     ggplot2,
     viridis,
     magrittr,
-    methods
+    methods,
+    reshape2
 Depends: 
     R (>= 2.10)
 URL: https://github.com/JerryZhang-1222/searchMarker
