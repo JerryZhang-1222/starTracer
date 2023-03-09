@@ -1,3 +1,4 @@
 Version 1.0.3.9000 (2022-03-07)
 
 Added new function `StVlnPlot()` for plotting stackedVionlinPlot.
+Added new function `filterMarker()` for reordering the output data.frame of Seurat

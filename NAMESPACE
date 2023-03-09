@@ -3,6 +3,7 @@
 S3method(searchMarker,Seurat)
 S3method(searchMarker,matrix)
 export(StVlnPlot)
+export(filterMarker)
 export(searchMarker)
 import(Seurat)
 import(dplyr)
