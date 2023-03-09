@@ -1,0 +1,28 @@
+Package: searchMarker
+Title: A High Effect Marker Gene Search Tool for Single-cell RNA-seq Analysis
+Version: 1.0.2.9000
+update: 
+Authors@R: 
+   c(person(given = "Feiyang", family = "ZHANG" , email = "feiyang.zhang@a.riken.jp", role = c("aut", "cre")),
+     person(given = "Zechen", family = "LIU" , email = "2017301500039@whu.edu.cn", role = "ctb"),
+     person(given = "Wenhao", family = "MA" , email = "2840008176@qq.com", role = "ctb"),
+     person(given = "Xiang", family = "LI" , email = "lixiang.epi@foxmail.com", role = "ctb"),
+     person(given = "Wei", family = "WEI" , email = "royweiwei12@foxmail.com", role = "ctb"),
+     person(given = "Qiongyi", family = "ZHAO", email = "q.zhao@uq.edu.au", role = "ctb"))
+Maintainer: Feiyang ZHANG <feiyang.zhang@a.riken.jp>
+Description: A beta-version. This package will be able to used to search marker genes in an efficient way. It takes an SeuratObject or the direct output data.frame of FindAllMarkers function to search the ideal top N marker gene with a higher specificity level and efficiency. The function also provides a intuitive way to help users quickly understand the specificity of the selected top N marker genes.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+LazyData: true
+Imports:
+    Seurat,
+    dplyr,
+    stringr,
+    ggplot2,
+    viridis,
+    magrittr,
+    methods
+Depends: 
+    R (>= 2.10)
