@@ -25,15 +25,18 @@
 #' colors = NULL)
 #' }
 StVlnPlot <- function(x,assay = "RNA",genes,ident = "seurat_clusters",colors = NULL){
+  meta.data <- x@meta.data
+  meta.data[,".cells"] <- rownames(meta.data)
+
   vln.df <- as.data.frame(x[[assay]]@data[genes,])
   vln.df$gene <- rownames(vln.df)
 
   vln.df <- reshape2::melt(vln.df,id="gene")
-  colnames(vln.df)[c(2,3)] <- c("cells","exp")
+  colnames(vln.df)[c(2,3)] <- c(".cells","exp")
 
-  anno <- x@meta.data[,c("cells",ident)]
+  anno <- meta.data[,c(".cells",ident)]
 
-  vln.df <- dplyr::inner_join(vln.df,anno,by="cells")
+  vln.df <- dplyr::inner_join(vln.df,anno,by=".cells")
   vln.df$gene <- factor(vln.df$gene,levels = genes)
 
   n <- x@meta.data[,ident] %>% unique() %>% length()
