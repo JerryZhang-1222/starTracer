@@ -8,7 +8,7 @@
 #' @param method the arranging method of ordering the genes. Set default and strongly suggestted as "del_MI"
 #' @param num the topN gene user prefers
 #'
-#' @return a list containing a pseudobulk expression matrix of the selected genes; a gene list; a parameter frame.
+#' @return a list containing a pseudobulk expression matrix of the selected genes; a gene list; a parameter frame and a heatmap
 #'
 #' @import magrittr
 #' @import dplyr
@@ -97,7 +97,7 @@ searchMarker.Seurat <- function(x,thresh.1 = 0.3,thresh.2 = NULL,method = "del_M
   .idents <- Seurat::Idents(x) %>% levels() %>% paste0(collapse = ", ")
   message(paste0("using ",.idents," as ident..."))
 
-  expr.use <- Seurat::AverageExpression(x,)[[1]]
+  expr.use <- Seurat::AverageExpression(x)[[1]]
   clusters <- colnames(expr.use) %>% as.vector()
   n.cluster <- length(clusters)
 
@@ -140,12 +140,18 @@ searchMarker.Seurat <- function(x,thresh.1 = 0.3,thresh.2 = NULL,method = "del_M
                            max.X,function(x){head(x,num)})) %>% unlist() %>% as.character() %>% rev()
 
 
+  #plot heatmap
+  message("Using \"RNA\" as the assay to plot Heatmap...")
+  p <- HeatPlot(x = x, assay = "RNA", genes = genes.markers)
+
+
   # a list containing all the results
   message("createing out put data...")
   calmarkers.out <- list(
     para_frame = mean.frame,
     genes.markers = genes.markers,
-    exprs.markers = expr.use[genes.markers,]
+    exprs.markers = expr.use[genes.markers,],
+    heatmap = p
   )
   message("Analysing Complete!")
   return(calmarkers.out)

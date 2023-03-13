@@ -18,7 +18,7 @@ searchMarker(x, thresh.1 = 0.3, thresh.2 = 0.1, method = "del_MI", num = 2)
 \item{num}{the topN gene user prefers}
 }
 \value{
-a list containing a pseudobulk expression matrix of the selected genes; a gene list; a parameter frame.
+a list containing a pseudobulk expression matrix of the selected genes; a gene list; a parameter frame and a heatmap
 }
 \description{
 this is the main function of searching marker genes
