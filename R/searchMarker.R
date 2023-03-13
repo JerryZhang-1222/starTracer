@@ -74,7 +74,7 @@ searchMarker.matrix <- function(x,thresh.1 = 0.3,thresh.2 = 0.1,method = "del_MI
 
   #plot heatmap
   message("Using \"RNA\" as the assay to plot Heatmap...")
-  p <- HeatPlot(x = x, assay = "RNA", genes = genes.markers)
+  p <- pheatmap::pheatmap(mat = log(x[genes.markers,] + 1),color = viridis::viridis(10),border_color = NA)
 
   # a list containing all the results
   message("createing out put data...")
