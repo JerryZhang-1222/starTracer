@@ -72,13 +72,17 @@ searchMarker.matrix <- function(x,thresh.1 = 0.3,thresh.2 = 0.1,method = "del_MI
                         by(mean.frame[,"gene"],
                            max.X,function(x){head(x,num)})) %>% unlist() %>% as.character() %>% rev()
 
+  #plot heatmap
+  message("Using \"RNA\" as the assay to plot Heatmap...")
+  p <- HeatPlot(x = x, assay = "RNA", genes = genes.markers)
 
   # a list containing all the results
   message("createing out put data...")
   calmarkers.out <- list(
     para_frame = mean.frame,
     genes.markers = genes.markers,
-    exprs.markers = expr.use[genes.markers,]
+    exprs.markers = expr.use[genes.markers,],
+    heatmap = p
   )
   message("Analysing Complete!")
 

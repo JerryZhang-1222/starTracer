@@ -3,12 +3,13 @@
 #' @param x Seurat Object
 #' @param ident.use ident to use during calculation, should be the same as the one user used during FindAllMarkers()
 #' @param mat the out out data.frame of FindAllMarkers()
+#' @param num the number of marker genes the user prefers
 #'
 #' @return a modified data.frame of the FindAllMarkers function
 #' @export
 #'
 #' @examples \dontrun{filterMarker(x = pbmc_small, ident.use = "RNA_snn_res.1", mat = diff.wilcox)}
-filterMarker <- function(x,ident.use,mat){
+filterMarker <- function(x,ident.use,mat,num = 4){
 
   ref <- x@meta.data[,ident.use] %>% table() %>% as.data.frame()
   colnames(ref) <- c("ident_use","count")
@@ -30,5 +31,17 @@ filterMarker <- function(x,ident.use,mat){
   mat$trace_order <- order
   mat <- mat[order(mat[,"cluster"],-mat[,"trace_order"]),]
 
-  return(mat)
+
+  genes.markers <- with(mat,
+                        by(mat[,"gene"],
+                           cluster,function(x){head(x,num)})) %>% unlist() %>% as.character() %>% rev()
+
+  p <- HeatPlot(x = x, assay = "RNA", genes = genes.markers)
+
+  filtermarkers.out <- list(
+    marker.frame = mat,
+    heatmap = p
+  )
+
+  return(filtermarkers.out)
 }

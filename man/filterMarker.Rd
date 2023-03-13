@@ -4,7 +4,7 @@
 \alias{filterMarker}
 \title{filterMarker}
 \usage{
-filterMarker(x, ident.use, mat)
+filterMarker(x, ident.use, mat, num = 4)
 }
 \arguments{
 \item{x}{Seurat Object}
@@ -12,6 +12,8 @@ filterMarker(x, ident.use, mat)
 \item{ident.use}{ident to use during calculation, should be the same as the one user used during FindAllMarkers()}
 
 \item{mat}{the out out data.frame of FindAllMarkers()}
+
+\item{num}{the number of marker genes the user prefers}
 }
 \value{
 a modified data.frame of the FindAllMarkers function
