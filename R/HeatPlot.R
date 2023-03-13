@@ -15,7 +15,7 @@ HeatPlot <- function(x,
                      assay,
                      genes){
 
-  mat <- Seurat::AverageExpression(x,assays = assay)[[1]]
+  mat <- Seurat::AverageExpression(x,assays = assay)[[1]][genes,]
   mat <- log10(mat + 1)
 
   p <- pheatmap::pheatmap(mat,color = viridis::viridis(10),border_color = NA)
