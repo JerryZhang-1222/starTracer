@@ -7,6 +7,7 @@
 #' @param thresh.2 the specificity level or the lowest expression level of the genes user prefers
 #' @param method the arranging method of ordering the genes. Set default and strongly suggestted as "del_MI"
 #' @param num the topN gene user prefers
+#' @param gene.use the genes we use, set NULL to use all the genes or set as "HVG" to only use HVG in Seurat Object
 #'
 #' @return a list containing a pseudobulk expression matrix of the selected genes; a gene list; a parameter frame and a heatmap
 #'
@@ -18,19 +19,19 @@
 #'
 #' @examples  \dontrun{calMarker(expr = expr,thresh.1 = 0.5, thresh.2 = 0.4, num = 2, method = "del_MI")}
 #'
-searchMarker <- function(x,thresh.1 = 0.3,thresh.2 = 0.1,method = "del_MI",num = 2){
+searchMarker <- function(x,thresh.1 = 0.3,thresh.2 = 0.1,method = "del_MI",num = 2, gene.use = NULL){
  UseMethod("searchMarker")
 }
 
 #' @import magrittr
 #' @import dplyr
 #' @export
-searchMarker.matrix <- function(x,thresh.1 = 0.3,thresh.2 = 0.1,method = "del_MI",num = 2){
-
+searchMarker.matrix <- function(x,thresh.1 = 0.3,thresh.2 = 0.1,method = "del_MI",num = 2, gene.use = NULL){
   #calculating average expression matrix
   if(ncol(x) >= 100){warning("more than 100 clusters detected... please check the input data")}
 
   expr.use <- x
+
   clusters <- colnames(expr.use) %>% as.vector()
   n.cluster <- length(clusters)
 
@@ -95,13 +96,21 @@ searchMarker.matrix <- function(x,thresh.1 = 0.3,thresh.2 = 0.1,method = "del_MI
 #' @import magrittr
 #' @import dplyr
 #' @export
-searchMarker.Seurat <- function(x,thresh.1 = 0.3,thresh.2 = NULL,method = "del_MI",num = 2){
+searchMarker.Seurat <- function(x,thresh.1 = 0.3,thresh.2 = NULL,method = "del_MI",num = 2, gene.use = NULL){
 
   #calculating average expression matrix
   .idents <- Seurat::Idents(x) %>% levels() %>% paste0(collapse = ", ")
   message(paste0("using ",.idents," as ident..."))
 
-  expr.use <- Seurat::AverageExpression(x)[[1]]
+  .tmp <- any(grepl("FindVariableFeatures",Command(x)))
+
+  if(gene.use == "HVG"){
+    if(.tmp){expr.use <- Seurat::AverageExpression(x[VariableFeatures(x),])[[1]]} else {stop("please run Seurat::FindVariableFeatures()")}
+  } else {
+    message("using all genes as input...")
+    expr.use <- Seurat::AverageExpression(x)[[1]]
+  }
+
   clusters <- colnames(expr.use) %>% as.vector()
   n.cluster <- length(clusters)
 

@@ -4,7 +4,14 @@
 \alias{searchMarker}
 \title{searchMarker}
 \usage{
-searchMarker(x, thresh.1 = 0.3, thresh.2 = 0.1, method = "del_MI", num = 2)
+searchMarker(
+  x,
+  thresh.1 = 0.3,
+  thresh.2 = 0.1,
+  method = "del_MI",
+  num = 2,
+  gene.use = NULL
+)
 }
 \arguments{
 \item{x}{the psudobulk RNA expression matrix of a Seurat Object}
@@ -16,6 +23,8 @@ searchMarker(x, thresh.1 = 0.3, thresh.2 = 0.1, method = "del_MI", num = 2)
 \item{method}{the arranging method of ordering the genes. Set default and strongly suggestted as "del_MI"}
 
 \item{num}{the topN gene user prefers}
+
+\item{gene.use}{the genes we use, set NULL to use all the genes or set as "HVG" to only use HVG in Seurat Object}
 }
 \value{
 a list containing a pseudobulk expression matrix of the selected genes; a gene list; a parameter frame and a heatmap
