@@ -105,10 +105,14 @@ searchMarker.Seurat <- function(x,thresh.1 = 0.3,thresh.2 = NULL,method = "del_M
   .tmp <- any(grepl("FindVariableFeatures",Command(x)))
 
   if(is.null(gene.use)){
-    message("using all genes as input...")
+    message("using all genes as input features...")
     expr.use <- Seurat::AverageExpression(x)[[1]]
   } else if(gene.use == "HVG"){
-    if(.tmp){expr.use <- Seurat::AverageExpression(x[VariableFeatures(x),])[[1]]} else {stop("please run Seurat::FindVariableFeatures()")}
+    if(.tmp){
+      message("using HVG as input features...")
+      x <- x[VariableFeatures(x),]
+      expr.use <- Seurat::AverageExpression(x)[[1]]
+      } else {stop("please run Seurat::FindVariableFeatures()")}
   } else {
     message("plese set gene.use as \"HVG\" to use only HUV or NULL to use all genes")
   }
