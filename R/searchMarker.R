@@ -98,6 +98,9 @@ searchMarker.matrix <- function(x,thresh.1 = 0.3,thresh.2 = 0.1,method = "del_MI
 #' @export
 searchMarker.Seurat <- function(x,thresh.1 = 0.3,thresh.2 = NULL,method = "del_MI",num = 2, gene.use = NULL){
 
+  #stop
+  if(length(Idents(x)) == 1){stop("Ident with only one level, starTracer is not able to define the marker gene...")}
+
   #calculating average expression matrix
   .idents <- Seurat::Idents(x) %>% levels() %>% paste0(collapse = ", ")
   message(paste0("using ",.idents," as ident..."))
