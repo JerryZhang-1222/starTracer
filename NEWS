@@ -10,3 +10,7 @@ Added new parameter gene.use in function `searchMarker()` for accelerate calcula
 Version 1.0.4.9000 (2022-03-07)
 
 Added new stop when user provide an Ident with only one level.
+
+Version 1.0.4.9000 (2022-04-10)
+
+Fixed Bug of Filtermarker

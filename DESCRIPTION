@@ -1,6 +1,6 @@
 Package: starTracer
 Title: A High Effect Marker Gene Search Tool for Single-cell RNA-seq Analysis
-Version: 1.0.5.9000
+Version: 1.0.6.9000
 update: 
 Authors@R: 
    c(person(given = "Feiyang", family = "ZHANG" , email = "feiyang.zhang@a.riken.jp", role = c("aut", "cre")),
