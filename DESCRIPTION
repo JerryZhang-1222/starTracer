@@ -10,7 +10,7 @@ Authors@R:
      person(given = "Xiang", family = "LI" , email = "lixiang.epi@foxmail.com", role = "ctb"),
      person(given = "Qiongyi", family = "ZHAO", email = "q.zhao@uq.edu.au", role = "ctb"),
      person(given = "Wei", family = "WEI" , email = "royweiwei12@foxmail.com", role = "ctb"),
-     person(given = "Dan", family = "WANG" , email = "ok2108@nyu.edu", role = "ctb"),
+     person(given = "Dan", family = "WANG" , email = "ok2108@nyu.edu", role = "ctb")
       )
 Maintainer: Feiyang ZHANG <feiyang.zhang@a.riken.jp>
 Description: A beta-version. This package will be able to used to search marker genes in an efficient way. It takes an SeuratObject or the direct output data.frame of FindAllMarkers function to search the ideal top N marker gene with a higher specificity level and efficiency. The function also provides a intuitive way to help users quickly understand the specificity of the selected top N marker genes.
@@ -28,7 +28,9 @@ Imports:
     magrittr,
     methods,
     reshape2,
-    pheatmap
+    pheatmap,
+    Matrix,
+    stats
 Depends: 
     R (>= 2.10)
 URL: https://github.com/JerryZhang-1222/searchMarker

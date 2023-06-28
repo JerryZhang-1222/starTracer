@@ -17,7 +17,7 @@ filterMarker <- function(x,ident.use,mat,num = 4){
   order <- c()
   for (i in 1:nrow(mat)) {
     line <- mat[i, ,drop = T]
-    ident <- line$cluster %>% as.character()
+    ident <- line[,"cluster"] %>% as.character()
     ident.num <- ref[ident, "count"] %>% as.numeric()
     rest.num <- as.numeric(sum(ref$count) - ident.num)
     pct1 <- line["pct.1"] %>% as.numeric()

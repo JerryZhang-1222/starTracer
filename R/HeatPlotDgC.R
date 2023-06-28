@@ -7,7 +7,7 @@
 #'
 #' @examples \dontrun{HeatPlotDgC(x = pbmc_small,genes = genes)}
 HeatPlotDgC <- function(x, genes){
-  mat <- expr.use[genes,]
+  mat <- x[genes,]
   mat <- t(mat) %>% scale() %>% t()
   pheatmap::pheatmap(mat)
 }

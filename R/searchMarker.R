@@ -185,6 +185,7 @@ searchMarker.Seurat <- function(x,thresh.1 = 0.5,thresh.2 = NULL,method = "del_M
 #' @import magrittr
 #' @import dplyr
 #' @import pheatmap
+#' @import stats
 #' @export
 searchMarker.dgCMatrix <- function(x,thresh.1 = 0.5,thresh.2 = NULL,method = "del_MI",num = 2, gene.use = NULL,meta.data = NULL,ident.use = NULL){
 

@@ -14,3 +14,7 @@ Added new stop when user provide an Ident with only one level.
 Version 1.0.6.9000 (2022-04-10)
 
 Fixed Bug of Filtermarker
+
+Version 1.0.7.9000 (2022-06-28)
+
+add a new function, users are free to use a dgCMatrix and a mata.data matrix as import files, to better co-operate with other single cell analysis packages.
