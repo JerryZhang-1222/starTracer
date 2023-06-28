@@ -6,11 +6,13 @@
 \usage{
 searchMarker(
   x,
-  thresh.1 = 0.3,
-  thresh.2 = 0.1,
+  thresh.1 = 0.5,
+  thresh.2 = NULL,
   method = "del_MI",
   num = 2,
-  gene.use = NULL
+  gene.use = NULL,
+  meta.data = NULL,
+  ident.use = NULL
 )
 }
 \arguments{
@@ -25,6 +27,10 @@ searchMarker(
 \item{num}{the topN gene user prefers}
 
 \item{gene.use}{the genes we use, set NULL to use all the genes or set as "HVG" to only use HVG in Seurat Object}
+
+\item{meta.data}{when importing a dgCMatrix and a meta.data, users should pass the meta.data to this param}
+
+\item{ident.use}{when importing a dgCMatrix and a meta.data, users should specify the ident that should be used in the meta.data}
 }
 \value{
 a list containing a pseudobulk expression matrix of the selected genes; a gene list; a parameter frame and a heatmap
