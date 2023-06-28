@@ -282,7 +282,7 @@ searchMarker.dgCMatrix <- function(x,thresh.1 = 0.5,thresh.2 = NULL,method = "de
 
   #plot heatmap
   message("Using \"RNA\" as the assay to plot Heatmap...")
-  p <- HeatPlotDgC(x = x, genes = genes.markers)
+  p <- HeatPlotDgC(x = expr.use, genes = genes.markers)
 
 
   # a list containing all the results
