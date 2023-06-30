@@ -9,7 +9,14 @@
 #' @export
 #'
 #' @examples \dontrun{filterMarker(x = pbmc_small, ident.use = "RNA_snn_res.1", mat = diff.wilcox)}
-filterMarker <- function(x,ident.use,mat,num = 4){
+filterMarker <- function(x,ident.use,mat,num = "all"){
+  #get num
+  if(num == "all"){
+    message("num is set to all, now finding the optimal number...")
+    num <- max(as.matrix(table(mat$cluster))[,1])
+    message(paste0("using ",num," as the maximumn number to find marker genes in each cluster"))
+  }
+  #
   ref <- x@meta.data[, ident.use] %>% table() %>% as.data.frame()
   colnames(ref) <- c("ident_use", "count")
   rownames(ref) <- ref[, "ident_use"]

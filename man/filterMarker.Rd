@@ -4,7 +4,7 @@
 \alias{filterMarker}
 \title{filterMarker}
 \usage{
-filterMarker(x, ident.use, mat, num = 4)
+filterMarker(x, ident.use, mat, num = "all")
 }
 \arguments{
 \item{x}{Seurat Object}
