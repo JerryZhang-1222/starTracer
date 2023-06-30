@@ -56,7 +56,7 @@ filterMarker <- function(x,ident.use,mat,num = "all"){
     message(paste0("We found ",num," marker genes for cluster: ",info.yes))
   }
   if(info.no != ""){
-    message(paste0("starTracer failed to find ", num," marker genes in cluster: ",info.no,", instead, we found ", info.no.num, "  marker genes in such cluster(s), respectively"))
+    message(paste0("starTracer found ", num," marker genes in cluster: ",info.yes,", for clusters ", info.no, " starTracer found ", info.no.num, " marker genes."))
   }
 
   genes.markers <- mat$gene
