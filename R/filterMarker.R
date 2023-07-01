@@ -34,13 +34,13 @@ filterMarker <- function(x,ident.use,mat,num = "all"){
     order <- append(order, rate.i)
   }
   mat$pct.pos <- order
-  mat <- mat[order(mat[, "cluster"], -mat[, "pct.pos"]),]
+  mat <- mat[order(-mat[, "pct.pos"]),]
 
-  mat <- mat[!duplicated(mat$gene),] %>% arrange(cluster,desc(avg_log2FC))
+  mat <- mat[!duplicated(mat$gene),] %>% arrange(cluster,desc(pct.pos))
 
   mat <- mat %>%
     group_by(cluster) %>% #按照cluster列进行分组
-    top_n(num, wt = avg_log2FC) %>% #按照FC列从大到小排序，选择每组前2行
+    top_n(num, wt = pct.pos) %>% #按照FC列从大到小排序，选择每组前2行
     ungroup()
 
   #message:
@@ -62,7 +62,7 @@ filterMarker <- function(x,ident.use,mat,num = "all"){
   genes.markers <- mat$gene
   p <- HeatPlot(x = x, assay = "RNA", genes = genes.markers)
 
-  filtermarkers.out <- list(marker.frame = mat, heatmap = p)
+  filtermarkers.out <- list(marker.frame = mat, heatmap = p, genes.markers = genes.markers)
 
   return(filtermarkers.out)
 }
