@@ -40,7 +40,7 @@ filterMarker <- function(x,ident.use,mat,num = "all"){
 
   mat <- mat %>%
     group_by(cluster) %>%
-    slice_head(num) %>%
+    slice_head(n = num) %>%
     ungroup()
 
   #message:
