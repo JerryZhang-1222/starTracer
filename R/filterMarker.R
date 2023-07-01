@@ -36,11 +36,11 @@ filterMarker <- function(x,ident.use,mat,num = "all"){
   mat$pct.pos <- order
   mat <- mat[order(-mat[, "pct.pos"]),]
 
-  mat <- mat[!duplicated(mat$gene),] %>% arrange(cluster,desc(pct.pos))
+  mat <- mat[!duplicated(mat$gene),] %>% arrange(cluster,desc(pct.pos),desc(avg_log2FC))
 
   mat <- mat %>%
-    group_by(cluster) %>% #按照cluster列进行分组
-    top_n(num, wt = pct.pos) %>% #按照FC列从大到小排序，选择每组前2行
+    group_by(cluster) %>%
+    slice_head(num) %>%
     ungroup()
 
   #message:
