@@ -30,7 +30,10 @@ Imports:
     reshape2,
     pheatmap,
     Matrix,
-    stats
+    stats,
+    rlang,
+    tibble,
+    tidyr
 Depends: 
     R (>= 2.10)
 URL: https://github.com/JerryZhang-1222/searchMarker

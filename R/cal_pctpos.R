@@ -18,7 +18,6 @@ cal_pctpos <- function(x,ident.use,mat,thresh.min = 0){
   meta <- FetchData(x, c(ident.use)) %>%
     tibble::rownames_to_column("cell.id")
   data <- GetAssayData(x, slot = "counts", assay = "RNA")
-
   ident_sym <- sym(ident.use)
 
   message("getting dgCMatrix from object")
@@ -40,6 +39,8 @@ cal_pctpos <- function(x,ident.use,mat,thresh.min = 0){
   .tmp <- merge(.tmp,.ref,by = "gene")
 
   .tmp <- mutate(.tmp,pct.pos = expressing.cells/expressing.cells.all)
+  .tmp <- subset(.tmp,paste(as.data.frame(.tmp)$gene,as.data.frame(.tmp)[,ident.use],sep = "_") %in% paste(mat$gene,mat$cluster,sep = "_"))
+
   .tmp <- .tmp[match(mat$gene,.tmp$gene),]
 
   mat$pct.pos <- round(.tmp$pct.pos,digits = 3)
