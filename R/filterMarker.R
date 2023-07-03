@@ -6,7 +6,14 @@
 #' @param num the number of marker genes the user prefers
 #' @param thresh.min the minimum value that consider a given cell expresses a certain gene
 #'
+#' @import tibble
+#' @import tidyr
+#' @import dplyr
+#' @import magrittr
+#' @import rlang
+#'
 #' @return a modified data.frame of the FindAllMarkers function
+#'
 #' @export
 #'
 #' @examples \dontrun{filterMarker(x = pbmc_small, ident.use = "RNA_snn_res.1", mat = diff.wilcox)}
