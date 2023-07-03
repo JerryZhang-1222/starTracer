@@ -4,12 +4,13 @@
 #' @param ident.use ident to use during calculation, should be the same as the one user used during FindAllMarkers()
 #' @param mat the out out data.frame of FindAllMarkers()
 #' @param num the number of marker genes the user prefers
+#' @param thresh.min the minimum value that consider a given cell expresses a certain gene
 #'
 #' @return a modified data.frame of the FindAllMarkers function
 #' @export
 #'
 #' @examples \dontrun{filterMarker(x = pbmc_small, ident.use = "RNA_snn_res.1", mat = diff.wilcox)}
-filterMarker <- function(x,ident.use,mat,num = "all"){
+filterMarker <- function(x,ident.use,mat,num = "all",thresh.min = 0){
   #get num
   if(num == "all"){
     message("num is set to all, now finding the optimal number...")
@@ -17,23 +18,7 @@ filterMarker <- function(x,ident.use,mat,num = "all"){
     message(paste0("using ",num," as the maximumn number to find marker genes in each cluster"))
   }
   #
-  ref <- x@meta.data[, ident.use] %>% table() %>% as.data.frame()
-  colnames(ref) <- c("ident_use", "count")
-  rownames(ref) <- ref[, "ident_use"]
-  ref[, "ident_use"] <- NULL
-  order <- c()
-  for (i in 1:nrow(mat)) {
-    line <- mat[i, ,drop = T]
-    ident <- line$cluster %>% as.character()
-    ident.num <- ref[ident, "count"] %>% as.numeric()
-    rest.num <- as.numeric(sum(ref$count) - ident.num)
-    pct1 <- line["pct.1"] %>% as.numeric()
-    pct2 <- line["pct.2"] %>% as.numeric()
-    rate.i <- (ident.num * pct1)/(ident.num * pct1 + rest.num *
-                                    pct2)
-    order <- append(order, rate.i)
-  }
-  mat$pct.pos <- order
+  mat <- cal_pctpos(x = x, ident.use = ident.use, mat = mat, thresh.min = 0)
   mat <- mat[order(-mat[, "pct.pos"]),]
 
   mat <- mat[!duplicated(mat$gene),] %>% arrange(cluster,desc(pct.pos),desc(avg_log2FC))

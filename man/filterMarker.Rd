@@ -4,7 +4,7 @@
 \alias{filterMarker}
 \title{filterMarker}
 \usage{
-filterMarker(x, ident.use, mat, num = "all")
+filterMarker(x, ident.use, mat, num = "all", thresh.min = 0)
 }
 \arguments{
 \item{x}{Seurat Object}
@@ -14,6 +14,8 @@ filterMarker(x, ident.use, mat, num = "all")
 \item{mat}{the out out data.frame of FindAllMarkers()}
 
 \item{num}{the number of marker genes the user prefers}
+
+\item{thresh.min}{the minimum value that consider a given cell expresses a certain gene}
 }
 \value{
 a modified data.frame of the FindAllMarkers function
