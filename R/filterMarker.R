@@ -30,7 +30,7 @@ filterMarker <- function(x,ident.use,mat,num = "all",thresh.min = 0){
   if(ncol(x) < 100000){
     mat <- cal_pctpos(x = x, ident.use = ident.use, mat = mat, thresh.min = 0)
   } else {
-    message("detecting cells greater than 100,000, using pct calculating method for big data...")
+    message("detecting cells greater than 100,000, using pct.pos calculating method for big data...")
     mat <- cal_pctpos.big(x = x, ident.use = ident.use, mat = mat, thresh.min = 0)
   }
 
