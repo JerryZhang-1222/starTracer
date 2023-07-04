@@ -20,7 +20,7 @@ cal_pctpos.big <- function(x,ident.use,mat,thresh.min = 0){
     rownames_to_column("cell.id")
 
   data <- GetAssayData(x, slot = "counts", assay = "RNA")
-  message("converting row to column...")
+  message("ESTIMATING TIME LEFT...")
   data.t <- Matrix::t(data)
 
   t1 <- Sys.time()
@@ -29,7 +29,7 @@ cal_pctpos.big <- function(x,ident.use,mat,thresh.min = 0){
   t <- t2 - t1
   est.time <- round(as.numeric(t)*nrow(mat)/60,digits = 3)
 
-  message(paste0("ESTIMATING TIME LEFT: ",est.time," min"))
+  message(paste0(est.time," min"))
   if(est.time > 5){message("why not take a rest and have a cup of tea?")}
 
   mat[,"pct.pos"] <- NA
