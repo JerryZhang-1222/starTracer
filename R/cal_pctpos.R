@@ -5,18 +5,20 @@
 #' @param mat marker gene table of seurat
 #' @param thresh.min
 #'
+#' @import Seurat
 #' @import tibble
 #' @import tidyr
 #' @import dplyr
 #' @import magrittr
 #' @import rlang
+#' @import Matrix
 #'
 #' @return a modified marker gene matrix with a new colum named "pct.pos"
 #'
 #' @examples \dontrun{cal_pctpos(x = x,ident.use = ident.use,mat = mat,thresh.min = 0)}
 cal_pctpos <- function(x,ident.use,mat,thresh.min = 0){
   meta <- FetchData(x, c(ident.use)) %>%
-    tibble::rownames_to_column("cell.id")
+    rownames_to_column("cell.id")
   data <- GetAssayData(x, slot = "counts", assay = "RNA")
   ident_sym <- sym(ident.use)
 

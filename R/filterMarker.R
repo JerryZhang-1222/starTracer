@@ -24,8 +24,16 @@ filterMarker <- function(x,ident.use,mat,num = "all",thresh.min = 0){
     num <- max(as.matrix(table(mat$cluster))[,1])
     message(paste0("using ",num," as the maximumn number to find marker genes in each cluster"))
   }
-  #
-  mat <- cal_pctpos(x = x, ident.use = ident.use, mat = mat, thresh.min = 0)
+
+
+  #calculate pct.pos
+  if(ncol(x) < 100000){
+    mat <- cal_pctpos(x = x, ident.use = ident.use, mat = mat, thresh.min = 0)
+  } else {
+    message("detecting cells greater than 100,000, using pct calculating method for big data...")
+    mat <- cal_pctpos.big(x = x, ident.use = ident.use, mat = mat, thresh.min = 0)
+  }
+
   mat <- mat[order(-mat[, "pct.pos"]),]
 
   mat <- mat[!duplicated(mat$gene),] %>% arrange(cluster,desc(pct.pos),desc(avg_log2FC))
