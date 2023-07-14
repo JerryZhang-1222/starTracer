@@ -2,7 +2,7 @@
 #'
 #' this is the main function of searching marker genes
 #'
-#' @param x the psudobulk RNA expression matrix of a Seurat Object
+#' @param x a Seurat Object, an average expression matrix or a sparse matrix.
 #' @param thresh.1 the threshold for dividing clusters max-normalized gene expression to high or low, set to 0.5 by default
 #' @param thresh.2 the specificity level or the lowest expression level of the genes user prefers
 #' @param method the arranging method of ordering the genes. Set default and strongly suggestted as "del_MI"

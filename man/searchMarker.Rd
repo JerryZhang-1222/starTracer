@@ -16,7 +16,7 @@ searchMarker(
 )
 }
 \arguments{
-\item{x}{the psudobulk RNA expression matrix of a Seurat Object}
+\item{x}{a Seurat Object, an average expression matrix or a sparse matrix.}
 
 \item{thresh.1}{the threshold for dividing clusters max-normalized gene expression to high or low, set to 0.5 by default}
 
