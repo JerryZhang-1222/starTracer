@@ -25,8 +25,6 @@ devtools::install_github("JerryZhang-1222/starTracer")
 
 1.  `starTracer::searchMarker()`: a de-novo pipeline. The function takes in a `Seurat` object/Sparse matrix + Annotation/Average Expression Matrix and then calculate the marker genes for each cluster.
 2.  `starTracer::filterMarker()`:an in-conjunction pipeline. The function takes in a `data.frame` from the `Seurat::FindAllMArkers()` function, providing a new data.frame with, which could be used to reordering the marker genes from the `data.frame` the user provided.
-3.  
-4.  
 
 ## 3.2 seachMrker
 
@@ -35,7 +33,6 @@ searchMarker is designed to take multiple kinds of input data. Users may provide
 1.  A Seurat object, with annotations.
 2.  A Sparse Matrix of the single cell expression matrix and a annotation matrix.
 3.  An average expression matrix.
-4.  
 
 For more details:
 
