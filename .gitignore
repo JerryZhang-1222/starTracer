@@ -6,3 +6,4 @@ dev/
 .httr-oauth
 .DS_Store
 .Rdata
+inst/doc

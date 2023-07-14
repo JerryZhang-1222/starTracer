@@ -1,0 +1,23 @@
+---
+title: "starTracer-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{starTracer-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# load data
+
+```{r setup}
+library(starTracer)
+```
+
+load data
