@@ -12,7 +12,11 @@ searchMarker(
   num = 2,
   gene.use = NULL,
   meta.data = NULL,
-  ident.use = NULL
+  ident.use = NULL,
+  scale.method = "scale",
+  lim.scale = 2,
+  border_color = "black",
+  colors = viridis(10)
 )
 }
 \arguments{
@@ -31,6 +35,14 @@ searchMarker(
 \item{meta.data}{when importing a dgCMatrix and a meta.data, users should pass the meta.data to this param}
 
 \item{ident.use}{when importing a dgCMatrix and a meta.data, users should specify the ident that should be used in the meta.data}
+
+\item{scale.method}{the scaling method that will be used when outputting the heatmap}
+
+\item{lim.scale}{when using "scale" as the method of scale.method, scaled value will be limited from -lim.scale to lim.scale}
+
+\item{border_color}{the color of border in the heatmap}
+
+\item{colors}{the colorkey of the heatmap}
 }
 \value{
 a list containing a pseudobulk expression matrix of the selected genes; a gene list; a parameter frame and a heatmap

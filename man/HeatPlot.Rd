@@ -6,17 +6,15 @@
 \usage{
 HeatPlot(
   x,
-  assay,
   genes,
   scale.method = "scale",
   lim.scale = 2,
-  border_color = "black"
+  border_color = "black",
+  colors = viridis(10)
 )
 }
 \arguments{
 \item{x}{a seurat object}
-
-\item{assay}{the assay in the Seurat Object to use}
 
 \item{genes}{the genes for the Seurat Object to use}
 
@@ -25,6 +23,8 @@ HeatPlot(
 \item{lim.scale}{when using "scale" as the method of scale.method, scaled value will be limited from -lim.scale to lim.scale}
 
 \item{border_color}{the color of border in the heatmap}
+
+\item{colors}{the colorkey of the heatmap}
 }
 \value{
 a plot of heatmap

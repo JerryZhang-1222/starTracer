@@ -10,25 +10,53 @@
 #' @param gene.use the genes we use, set NULL to use all the genes or set as "HVG" to only use HVG in Seurat Object
 #' @param meta.data when importing a dgCMatrix and a meta.data, users should pass the meta.data to this param
 #' @param ident.use when importing a dgCMatrix and a meta.data, users should specify the ident that should be used in the meta.data
+#' @param scale.method the scaling method that will be used when outputting the heatmap
+#' @param lim.scale when using "scale" as the method of scale.method, scaled value will be limited from -lim.scale to lim.scale
+#' @param border_color the color of border in the heatmap
+#' @param colors the colorkey of the heatmap
 #'
 #' @return a list containing a pseudobulk expression matrix of the selected genes; a gene list; a parameter frame and a heatmap
 #'
 #' @import magrittr
 #' @import dplyr
 #' @import methods
+#' @import viridis
 #'
 #' @export
 #'
 #' @examples  \dontrun{calMarker(expr = expr,thresh.1 = 0.5, thresh.2 = 0.4, num = 2, method = "del_MI")}
 #'
-searchMarker <- function(x,thresh.1 = 0.5,thresh.2 = NULL,method = "del_MI",num = 2, gene.use = NULL,meta.data = NULL,ident.use = NULL){
+searchMarker <- function(x,
+                         thresh.1 = 0.5,
+                         thresh.2 = NULL,
+                         method = "del_MI",
+                         num = 2,
+                         gene.use = NULL,
+                         meta.data = NULL,
+                         ident.use = NULL,
+                         scale.method = "scale",
+                         lim.scale = 2,
+                         border_color = "black",
+                         colors = viridis(10)){
  UseMethod("searchMarker")
 }
 
 #' @import magrittr
 #' @import dplyr
+#' @import viridis
 #' @export
-searchMarker.matrix <- function(x,thresh.1 = 0.5,thresh.2 = NULL,method = "del_MI",num = 2, gene.use = NULL,meta.data = NULL,ident.use = NULL){
+searchMarker.matrix <- function(x,
+                                thresh.1 = 0.5,
+                                thresh.2 = NULL,
+                                method = "del_MI",
+                                num = 2,
+                                gene.use = NULL,
+                                meta.data = NULL,
+                                ident.use = NULL,
+                                scale.method = "scale",
+                                lim.scale = 2,
+                                border_color = "black",
+                                colors = viridis(10)){
   #calculating average expression matrix
   if(ncol(x) >= 100){warning("more than 100 clusters detected... please check the input data")}
 
@@ -77,7 +105,12 @@ searchMarker.matrix <- function(x,thresh.1 = 0.5,thresh.2 = NULL,method = "del_M
 
   #plot heatmap
   message("Using \"RNA\" as the assay to plot Heatmap...")
-  p <- pheatmap::pheatmap(mat = log(x[genes.markers,] + 1),color = viridis::viridis(10),border_color = NA)
+  p <- HeatPlot(x = expr.use,
+                genes = genes.markers,
+                scale.method = scale.method,
+                lim.scale = lim.scale,
+                border_color = border_color,
+                colors = colors)
 
   # a list containing all the results
   message("createing out put data...")
@@ -97,8 +130,20 @@ searchMarker.matrix <- function(x,thresh.1 = 0.5,thresh.2 = NULL,method = "del_M
 #' @import Seurat
 #' @import magrittr
 #' @import dplyr
+#' @import viridis
 #' @export
-searchMarker.Seurat <- function(x,thresh.1 = 0.5,thresh.2 = NULL,method = "del_MI",num = 2, gene.use = NULL,meta.data = NULL,ident.use = NULL){
+searchMarker.Seurat <- function(x,
+                                thresh.1 = 0.5,
+                                thresh.2 = NULL,
+                                method = "del_MI",
+                                num = 2,
+                                gene.use = NULL,
+                                meta.data = NULL,
+                                ident.use = NULL,
+                                scale.method = "scale",
+                                lim.scale = 2,
+                                border_color = "black",
+                                colors = viridis(10)){
 
   #stop
   if(length(Idents(x)) == 1){stop("Ident with only one level, starTracer is not able to define the marker gene...")}
@@ -166,7 +211,12 @@ searchMarker.Seurat <- function(x,thresh.1 = 0.5,thresh.2 = NULL,method = "del_M
 
   #plot heatmap
   message("Using \"RNA\" as the assay to plot Heatmap...")
-  p <- HeatPlot(x = x, assay = "RNA", genes = genes.markers)
+  p <- HeatPlot(x = expr.use,
+                genes = genes.markers,
+                scale.method = scale.method,
+                lim.scale = lim.scale,
+                border_color = border_color,
+                colors = colors)
 
 
   # a list containing all the results
@@ -186,16 +236,27 @@ searchMarker.Seurat <- function(x,thresh.1 = 0.5,thresh.2 = NULL,method = "del_M
 #' @import dplyr
 #' @import pheatmap
 #' @import stats
+#' @import viridis
 #' @export
-searchMarker.dgCMatrix <- function(x,thresh.1 = 0.5,thresh.2 = NULL,method = "del_MI",num = 2, gene.use = NULL,meta.data = NULL,ident.use = NULL){
+searchMarker.dgCMatrix <- function(x,
+                                   thresh.1 = 0.5,
+                                   thresh.2 = NULL,
+                                   method = "del_MI",
+                                   num = 2,
+                                   gene.use = NULL,
+                                   meta.data = NULL,
+                                   ident.use = NULL,
+                                   scale.method = "scale",
+                                   lim.scale = 2,
+                                   border_color = "black",
+                                   colors = viridis(10)){
 
   #get meta.data, store as "data":
   data <- data.frame(row.names = row.names(meta.data), idents = meta.data[,ident.use])
   if(class(meta.data[,ident.use]) == "factor"){
     data$idents <- factor(data$idents,levels = levels(meta.data[,ident.use]))
-    data <- arrange(data,idents)
   } else {
-    warning("metadata is not a factor, setting as one///")
+    warning("metadata is not a factor, setting as one...")
     data$idents <- factor(data$idents)
   }
 
@@ -282,8 +343,12 @@ searchMarker.dgCMatrix <- function(x,thresh.1 = 0.5,thresh.2 = NULL,method = "de
 
   #plot heatmap
   message("Using \"RNA\" as the assay to plot Heatmap...")
-  p <- HeatPlotDgC(x = expr.use, genes = genes.markers)
-
+  p <- HeatPlot(x = expr.use,
+                genes = genes.markers,
+                scale.method = scale.method,
+                lim.scale = lim.scale,
+                border_color = border_color,
+                colors = colors)
 
   # a list containing all the results
   message("createing out put data...")
