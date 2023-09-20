@@ -4,7 +4,17 @@
 \alias{filterMarker}
 \title{filterMarker}
 \usage{
-filterMarker(x, ident.use, mat, num = "all", thresh.min = 0)
+filterMarker(
+  x,
+  ident.use,
+  mat,
+  num = "all",
+  thresh.min = 0,
+  scale.method = "scale",
+  lim.scale = 2,
+  border_color = "black",
+  colors = cividis(10)
+)
 }
 \arguments{
 \item{x}{Seurat Object}

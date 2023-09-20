@@ -17,7 +17,15 @@
 #' @export
 #'
 #' @examples \dontrun{filterMarker(x = pbmc_small, ident.use = "RNA_snn_res.1", mat = diff.wilcox)}
-filterMarker <- function(x,ident.use,mat,num = "all",thresh.min = 0){
+filterMarker <- function(x,
+                         ident.use,
+                         mat,
+                         num = "all",
+                         thresh.min = 0,
+                         scale.method = "scale",
+                         lim.scale = 2,
+                         border_color = "black",
+                         colors = cividis(10)){
   #get num
   if(num == "all"){
     message("num is set to all, now finding the optimal number...")
@@ -60,6 +68,7 @@ filterMarker <- function(x,ident.use,mat,num = "all",thresh.min = 0){
   }
 
   genes.markers <- mat$gene
+  expr.use <- Seurat::AverageExpression(x)[[1]]
   p <- HeatPlot(x = expr.use,
                 genes = genes.markers,
                 scale.method = scale.method,
