@@ -60,7 +60,12 @@ filterMarker <- function(x,ident.use,mat,num = "all",thresh.min = 0){
   }
 
   genes.markers <- mat$gene
-  p <- HeatPlot(x = x, assay = "RNA", genes = genes.markers)
+  p <- HeatPlot(x = expr.use,
+                genes = genes.markers,
+                scale.method = scale.method,
+                lim.scale = lim.scale,
+                border_color = border_color,
+                colors = colors)
 
   filtermarkers.out <- list(marker.frame = mat, heatmap = p, genes.markers = genes.markers)
 
