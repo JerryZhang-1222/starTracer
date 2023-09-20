@@ -11,6 +11,7 @@
 #' @import dplyr
 #' @import magrittr
 #' @import rlang
+#' @import viridis
 #'
 #' @return a modified data.frame of the FindAllMarkers function
 #'
