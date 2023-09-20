@@ -118,7 +118,8 @@ searchMarker.matrix <- function(x,
     para_frame = mean.frame,
     genes.markers = genes.markers,
     exprs.markers = expr.use[genes.markers,],
-    heatmap = p
+    heatmap = p,
+    expr.use = expr.use
   )
   message("Analysing Complete!")
 
@@ -225,7 +226,8 @@ searchMarker.Seurat <- function(x,
     para_frame = mean.frame,
     genes.markers = genes.markers,
     exprs.markers = expr.use[genes.markers,],
-    heatmap = p
+    heatmap = p,
+    expr.use = expr.use
   )
   message("Analysing Complete!")
   return(calmarkers.out)
@@ -316,8 +318,8 @@ searchMarker.dgCMatrix <- function(x,
 
   #flitrate clusters accroding to thresh.2
   if(is.null(thresh.2)){
-    message("setting thresh.2 as 0.5 by default")
-    thresh.2 <- 0.5
+    message("setting thresh.2 as 0.1 by default")
+    thresh.2 <- 0.1
   }
 
 
@@ -356,7 +358,8 @@ searchMarker.dgCMatrix <- function(x,
     para_frame = mean.frame,
     genes.markers = genes.markers,
     exprs.markers = expr.use[genes.markers,],
-    heatmap = p
+    heatmap = p,
+    expr.use = expr.use
   )
   message("Analysing Complete!")
   return(calmarkers.out)
