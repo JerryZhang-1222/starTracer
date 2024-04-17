@@ -157,7 +157,7 @@ searchMarker.Seurat <- function(x,
 
   if(is.null(gene.use)){
     message("using all genes as input features...")
-    expr.use <- average.express(x, ident = "active.ident", assay = "RNA", slot = "data", verbose = TRUE)
+    expr.use <- average.express(x, assay = "RNA", slot = "data", verbose = TRUE)
   } else if(gene.use == "HVG"){
     if(.tmp){
       message("using HVG as input features...")
