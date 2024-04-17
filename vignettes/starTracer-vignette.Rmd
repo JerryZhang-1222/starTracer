@@ -1,5 +1,5 @@
 ---
-title: "test-human-brain-vignette"
+title: "starTracer-vignette"
 output: rmarkdown::html_vignette
 date: "`r Sys.Date()`"
 author: 

@@ -157,7 +157,7 @@ searchMarker.Seurat <- function(x,
 
   if(is.null(gene.use)){
     message("using all genes as input features...")
-    expr.use <- Seurat::AverageExpression(x)[[1]]
+    expr.use <- average.express(x, ident = "active.ident", assay = "RNA", slot = "data", verbose = TRUE)
   } else if(gene.use == "HVG"){
     if(.tmp){
       message("using HVG as input features...")
@@ -253,60 +253,12 @@ searchMarker.dgCMatrix <- function(x,
                                    border_color = "black",
                                    colors = viridis(10)){
 
-  #get meta.data, store as "data":
-  data <- data.frame(row.names = row.names(meta.data), idents = meta.data[,ident.use])
-  if(class(meta.data[,ident.use]) == "factor"){
-    data$idents <- factor(data$idents,levels = levels(meta.data[,ident.use]))
-  } else {
-    warning("metadata is not a factor, setting as one...")
-    data$idents <- factor(data$idents)
-  }
-
   #stop and message
   if(length(unique(data$idents)) == 1){stop("Ident with only one level, starTracer is not able to define the marker gene...")}
   message(paste0("using ",unique(data$idents)," as ident..."))
 
-  #processing dgCMatrix
+  expr.use <- average.express.dgC(x,meta.data = meta.data,ident.use = ident.use)
 
-  category.matrix <- sparse.model.matrix(object = as.formula(
-    object = paste0(
-      '~0+',
-      paste0(
-        "data[,",
-        1:length(x = ident.use),
-        "]",
-        collapse = ":"
-        )
-      )
-    )
-  )
-  colsums <- colSums(x = category.matrix)
-  # filter out cells without gene expression
-  category.matrix <- category.matrix[, colsums > 0]
-  colsums <- colsums[colsums > 0]
-  # calculate rate
-  category.matrix <- sweep(
-    x = category.matrix,
-    MARGIN = 2,
-    STATS = colsums,
-    FUN = "/")
-  # using expm1 to deal with matrix
-  data.use <- expm1(x = x)
-  # getting average exprssion matrix
-  expr.use <- as.matrix(x = (data.use %*% category.matrix))
-  colnames(expr.use) <- levels(meta.data[,ident.use])
-
-  if(is.null(gene.use)){
-    message("using all genes as input features...")
-    expr.use <- expr.use
-  }
-
-  clusters <- colnames(expr.use) %>% as.vector()
-  n.cluster <- length(clusters)
-
-
-  #max_normalize the data
-  message("max normalizing the matirx...")
   expr.norm <- apply(t(expr.use),2,function(x){x/max(x)}) %>% t()
 
 
