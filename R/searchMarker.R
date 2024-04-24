@@ -161,8 +161,8 @@ searchMarker.Seurat <- function(x,
   } else if(gene.use == "HVG"){
     if(.tmp){
       message("using HVG as input features...")
-      x <- x[VariableFeatures(x),]
-      expr.use <- Seurat::AverageExpression(x)[[1]]
+      expr.use <- average.express(x, assay = "RNA", slot = "data", verbose = TRUE)
+      expr.use <- expr.use[VariableFeatures(x),]
       } else {stop("please run Seurat::FindVariableFeatures()")}
   } else {
     message("plese set gene.use as \"HVG\" to use only HUV or NULL to use all genes")

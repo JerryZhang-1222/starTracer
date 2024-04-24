@@ -31,7 +31,7 @@ average.express <- function(object, assay = "RNA", slot = "data", verbose = TRUE
   for (i in 1:length(ident.names)) {
     ifelse(Idents(object) %in% ident.names[i] %>% base::sum() > 1,
            m[[i]] <- Matrix::rowMeans(data[, which(idents == ident.names[i])]),
-           m[[i]] <- mean(data[, which(idents == ident.names[i])]))
+           m[[i]] <- data[, which(idents == ident.names[i])])
 
     if (verbose > 0) setTxtProgressBar(pb = pb, value = i)
   }
