@@ -8,7 +8,8 @@ searchMarker(
   x,
   thresh.1 = 0.5,
   thresh.2 = NULL,
-  method = "del_MI",
+  thresh.2.neg = NULL,
+  method = "pos",
   num = 2,
   gene.use = NULL,
   meta.data = NULL,
@@ -24,9 +25,11 @@ searchMarker(
 
 \item{thresh.1}{the threshold for dividing clusters max-normalized gene expression to high or low, set to 0.5 by default}
 
-\item{thresh.2}{the specificity level or the lowest expression level of the genes user prefers}
+\item{thresh.2}{the the lowest expression level of the genes user prefers}
 
-\item{method}{the arranging method of ordering the genes. Set default and strongly suggestted as "del_MI"}
+\item{thresh.2.neg}{the the highest expression level of the genes user prefers when calculating negative markers}
+
+\item{method}{the arranging method of ordering the genes. Set default and strongly suggestted as "pos", starTracer will only find positivie marker genes, setting as "all" to out put both up-regulated and down-regulated markers}
 
 \item{num}{the topN gene user prefers}
 
@@ -51,6 +54,6 @@ a list containing a pseudobulk expression matrix of the selected genes; a gene l
 this is the main function of searching marker genes
 }
 \examples{
- \dontrun{calMarker(expr = expr,thresh.1 = 0.5, thresh.2 = 0.4, num = 2, method = "del_MI")}
+ \dontrun{calMarker(expr = expr,thresh.1 = 0.5, thresh.2 = 0.4, num = 2, method = "pos")}
 
 }
