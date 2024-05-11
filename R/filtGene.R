@@ -19,11 +19,13 @@ filtGene <- function(expr.norm,thresh.2,clusters){
   #for each cluster, keep lines with mean.orig bigger than thresh.2
   for(i in clusters){
     mat.i <- subset(expr.norm,expr.norm[,"max.X"] == i)
-    mat.i <- arrange(mat.i,desc(mat.i[,"mean.orig"]))
+    if(nrow(mat.i) != 0){
+      mat.i <- arrange(mat.i,desc(mat.i[,"mean.orig"]))
 
-    mat.i <- mat.i[1:round(nrow(mat.i)*(1-thresh.2)),]
+      if(nrow(mat.i) != 1){mat.i <- mat.i[1:round(nrow(mat.i)*(1-thresh.2)),]}
 
-    mat <- rbind(mat,mat.i)
+      mat <- rbind(mat,mat.i)
+    }
   }
 
   return(mat)
