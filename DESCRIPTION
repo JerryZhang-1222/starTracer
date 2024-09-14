@@ -34,7 +34,8 @@ Imports:
     rlang,
     tibble,
     tidyr,
-    ComplexHeatmap
+    ComplexHeatmap,
+    grid
 Depends: 
     R (>= 2.10)
 URL: https://github.com/JerryZhang-1222/searchMarker

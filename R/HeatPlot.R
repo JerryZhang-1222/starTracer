@@ -48,8 +48,11 @@ HeatPlot <- function(x,
                top_annotation = HeatmapAnnotation(
                  mark = anno_mark(
                    at = marked_indices,
-                   labels = colnames(mat)[marked_indices]
-                 ))
+                   labels = colnames(mat)[marked_indices],
+                   labels_gp = gpar(fontsize = 3),
+                   link_gp = gpar(lwd = 0.1),
+                 ),
+                 annotation_name_offset = unit(1, "mm"))
   )
 }
 
