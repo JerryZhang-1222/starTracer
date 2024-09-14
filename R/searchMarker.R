@@ -131,7 +131,7 @@ searchMarker.matrix <- function(x,
   calmarkers.out <- list(
     para_frame = mean.frame,
     genes.markers = genes.markers,
-    exprs.markers = expr.use[genes.markers,],
+    exprs.markers = expr.use[na.omit(genes.markers),],
     heatmap = p,
     expr.use = expr.use
   )
@@ -313,7 +313,7 @@ searchMarker.Seurat <- function(x,
   calmarkers.out <- list(
     para_frame = mean.frame,
     genes.markers = genes.markers,
-    exprs.markers = expr.use[genes.markers,],
+    exprs.markers = expr.use[na.omit(genes.markers),],
     heatmap = p,
     expr.use = expr.use
   )
@@ -455,7 +455,7 @@ searchMarker.dgCMatrix <- function(x,
   calmarkers.out <- list(
     para_frame = mean.frame,
     genes.markers = genes.markers,
-    exprs.markers = expr.use[genes.markers,],
+    exprs.markers = expr.use[na.omit(genes.markers),],
     heatmap = p,
     expr.use = expr.use
   )
