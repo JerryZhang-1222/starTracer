@@ -33,7 +33,8 @@ Imports:
     stats,
     rlang,
     tibble,
-    tidyr
+    tidyr,
+    ComplexHeatmap
 Depends: 
     R (>= 2.10)
 URL: https://github.com/JerryZhang-1222/searchMarker

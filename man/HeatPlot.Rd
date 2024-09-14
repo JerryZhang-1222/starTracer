@@ -7,9 +7,11 @@
 HeatPlot(
   x,
   genes,
+  genes.top1,
   scale.method = "scale",
   lim.scale = 2,
   border_color = "black",
+  clusters = clusters,
   colors = viridis(10)
 )
 }
@@ -23,6 +25,8 @@ HeatPlot(
 \item{lim.scale}{when using "scale" as the method of scale.method, scaled value will be limited from -lim.scale to lim.scale}
 
 \item{border_color}{the color of border in the heatmap}
+
+\item{clusters}{the clusters of import data}
 
 \item{colors}{the colorkey of the heatmap}
 }

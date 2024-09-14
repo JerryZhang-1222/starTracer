@@ -1,11 +1,24 @@
 # StarTracer
 
+[![DOI](https://zenodo.org/badge/611591370.svg)](https://zenodo.org/doi/10.5281/zenodo.13364966)
+
 # 1 INTRODUCTION
 
-A **beta-version**. This package will be able to used to search marker genes in an efficient way. It takes an `SeuratObject` or the direct output `data.frame` of `Seurat::FindAllMarkers()` function to search the ideal top N marker gene with a higher specificity level and efficiency.
+This package will be able to used to search marker genes in an efficient way, which will accelerate your marker gene search process hundreds to thousands times faster.The function also provides a intuitive way to descibe the specificity of the selected top N marker genes.
 
-The function also provides a intuitive way to descibe the specificity of the selected top N marker genes.
 
+starTracer takes an `SeuratObject` as input or the direct output `data.frame` of `Seurat::FindAllMarkers()` function to search the ideal top N marker gene with a higher specificity level and efficiency.
+
+Please cite `doi: https://doi.org/10.1101/2023.09.21.558919` if starTracer has offered your help during your marker gene search process.
+
+## Instruction of How to Choose the Functions in starTracer:
+1. If you have a Seurat Object: you may directly put it into function `searchMarker`, please see details in usage or vignette.
+2. If you have any trouble with running with your Seurat Object, you may a). Utilizing `AverageExpress()`  from Seurat to generate a pseudo-bulk expression matrix, then impot the matrix into searchMarker function. b) Output your dgCMatrix, then import your matrix into `searchMarker` function.
+3. If you already have your Seurat's output, you can directly import that into `filterMarker` function to get a refined result.
+   Note that assuming using a same expression data, results from 1 and 2 will be the same while result 3 will differ.
+
+## Special Instruction for Python or other none-R users:
+We suggest you output your data as an average expression matrix (Pseudo-bulk Expression Matrix), then import it into R.
 # 2 INTSALLATION
 
 starTracer could now be downloaded from github via the following command:
@@ -49,7 +62,7 @@ res <- searchMarker(
   x = x, #the input seurat object
   thresh.1 = 0.5,
   thresh.2 = NULL,
-  method = "del_MI", 
+  method = "pos", 
   num = 2,
   gene.use = NULL,
   meta.data = NULL,
@@ -66,7 +79,7 @@ res <- searchMarker(
   x = x, #the input dgCMatrix
   thresh.1 = 0.5,
   thresh.2 = NULL,
-  method = "del_MI",
+  method = "pos",
   num = 2,
   gene.use = NULL,
   meta.data = meta.data, # the annotation matrix
@@ -83,7 +96,34 @@ res <- searchMarker(
   x = x, #the average expression matrix
   thresh.1 = 0.5,
   thresh.2 = NULL,
-  method = "del_MI",
+  method = "pos",
+  num = 2,
+  gene.use = NULL,
+  meta.data = NULL, # the annotation matrix
+  ident.use = NULL #the ident to use in the annotation matrix
+)
+```
+## 3.3 filterMarker, Automatically Refine Your Marker Gene Results from Seurat.
+Preparing your FIndAllMarkers output as a data.frame, the Seurat Object and run the following sripts, which might take a while before getting the refined result.
+```{r}
+res.filt <- starTracer::filterMarker(x = <FindAllMarkers output>,
+                                     ident.use = <your idents>,
+                                     <your Seurat Object>,
+                                     num = 5)
+```
+An additional column will be added as `pct.pos`, after which, you may
+1. Filter out marker genes according to a specific p-value and Fold-change.
+2. For each cluster, sort the marker gene by descending `pct.pos`.
+   
+## 3.4 NEW FUNCTION (Alpha Version): Find Negative Markers
+
+We now offer users a solution to find negative markers. Imply by specifying method = "neg"
+```{r}
+res <- searchMarker(
+  x = x,
+  thresh.1 = 0.5,
+  thresh.2 = NULL,
+  method = "neg",
   num = 2,
   gene.use = NULL,
   meta.data = NULL, # the annotation matrix

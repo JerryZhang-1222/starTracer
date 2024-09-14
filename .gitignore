@@ -7,3 +7,4 @@ dev/
 .DS_Store
 .Rdata
 inst/doc
+vignettes/

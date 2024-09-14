@@ -108,13 +108,22 @@ searchMarker.matrix <- function(x,
                         by(mean.frame[,"gene"],
                            max.X,function(x){head(x,num)})) %>% unlist() %>% as.character() %>% rev()
 
+  genes.top1.markers <- with(mean.frame,
+                             by(mean.frame[,"gene"],
+                                max.X,function(x){head(x,1)})) %>% unlist() %>% as.character() %>% rev()
+
+  na.group <- clusters[!clusters %in% unique(mean.frame$max.X)]
+  warning(paste0("No marker has been found in cluster ",na.group))
+
   #plot heatmap
   message("Using \"RNA\" as the assay to plot Heatmap...")
   p <- HeatPlot(x = expr.use,
-                genes = genes.markers,
+                genes = na.omit(genes.markers),
+                genes.top1 = na.omit(genes.top1.markers),
                 scale.method = scale.method,
                 lim.scale = lim.scale,
                 border_color = border_color,
+                clusters = clusters,
                 colors = colors)
 
   # a list containing all the results
@@ -163,13 +172,22 @@ searchMarker.matrix <- function(x,
                           by(mean.frame[,"gene"],
                              max.X,function(x){head(x,num)})) %>% unlist() %>% as.character() %>% rev()
 
+    genes.top1.markers <- with(mean.frame,
+                               by(mean.frame[,"gene"],
+                                  max.X,function(x){head(x,1)})) %>% unlist() %>% as.character() %>% rev()
+
+    na.group <- clusters[!clusters %in% unique(mean.frame$max.X)]
+    warning(paste0("No marker has been found in cluster ",na.group))
+
     #plot heatmap
     message("Using \"RNA\" as the assay to plot Heatmap...")
     p <- HeatPlot(x = expr.use,
-                  genes = genes.markers,
+                  genes = na.omit(genes.markers),
+                  genes.top1 = na.omit(genes.top1.markers),
                   scale.method = scale.method,
                   lim.scale = lim.scale,
                   border_color = border_color,
+                  clusters = clusters,
                   colors = colors)
 
     # a list containing all the results
@@ -271,14 +289,22 @@ searchMarker.Seurat <- function(x,
                         by(mean.frame[,"gene"],
                            max.X,function(x){head(x,num)})) %>% unlist() %>% as.character() %>% rev()
 
+  genes.top1.markers <- with(mean.frame,
+                             by(mean.frame[,"gene"],
+                                max.X,function(x){head(x,1)})) %>% unlist() %>% as.character() %>% rev()
+
+  na.group <- clusters[!clusters %in% unique(mean.frame$max.X)]
+  warning(paste0("No marker has been found in cluster ",na.group))
 
   #plot heatmap
   message("Using \"RNA\" as the assay to plot Heatmap...")
   p <- HeatPlot(x = expr.use,
-                genes = genes.markers,
+                genes = na.omit(genes.markers),
+                genes.top1 = na.omit(genes.top1.markers),
                 scale.method = scale.method,
                 lim.scale = lim.scale,
                 border_color = border_color,
+                clusters = clusters,
                 colors = colors)
 
 
